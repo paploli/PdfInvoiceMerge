@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using iTextSharp.awt.geom;
 using iTextSharp.text;
@@ -48,7 +44,7 @@ namespace PdfInvoiceMerge
         private void RefreshState()
         {
             var has = listInvoices.Items.Count > 0;
-            labInfo.Text = has ? $"共 { listInvoices.Items.Count} 张发票" : "就绪";
+            labInfo.Text = has ? $"共 {listInvoices.Items.Count} 张发票" : "就绪";
             btnClear.Enabled = has;
             btnMerge.Enabled = has;
             if (has && listInvoices.SelectedIndex < 0)
@@ -119,7 +115,7 @@ namespace PdfInvoiceMerge
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            cmbMergeType.SelectedIndex = 1;
+            //cmbMergeType.SelectedIndex = 1;
         }
 
         private void btnMerge_Click(object sender, EventArgs e)
@@ -131,26 +127,46 @@ namespace PdfInvoiceMerge
             }
 
             var dlg = saveFileDialog1.ShowDialog();
+
             if (dlg != DialogResult.OK)
                 return;
-            var type = cmbMergeType.SelectedIndex;
+
+            //var type = cmbMergeType.SelectedIndex;
 
             var files = listInvoices.Items.Cast<string>().ToList();
+
+
+            //try
+            //{
+            //    switch (cmbMergeType.SelectedIndex)
+            //    {
+            //        case 0:
+            //            Merge1(files, saveFileDialog1.FileName);
+            //            break;
+            //        case 1:
+            //        default:
+            //            Merge2(files, saveFileDialog1.FileName);
+            //            break;
+            //        case 2:
+            //            Merge4(files, saveFileDialog1.FileName);
+            //            break;
+            //    }
+
+            //    Process.Start(saveFileDialog1.FileName);
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message, "合并失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+
+            int row = int.Parse(txtRow.Text);
+            int column = int.Parse(txtColumn.Text);
+            int margin = int.Parse(txtMargin.Text);
+
             try
             {
-                switch (cmbMergeType.SelectedIndex)
-                {
-                    case 0:
-                        Merge1(files, saveFileDialog1.FileName);
-                        break;
-                    case 1:
-                    default:
-                        Merge2(files, saveFileDialog1.FileName);
-                        break;
-                    case 2:
-                        Merge4(files, saveFileDialog1.FileName);
-                        break;
-                }
+                Merge(row, column, margin, files, saveFileDialog1.FileName);
 
                 Process.Start(saveFileDialog1.FileName);
             }
@@ -158,6 +174,80 @@ namespace PdfInvoiceMerge
             {
                 MessageBox.Show(ex.Message, "合并失败", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+        }
+
+        public static void Merge(int row, int column, int margin, IEnumerable<string> files, string outputFile)
+        {
+            var queue = new ConcurrentQueue<string>(files);
+            var document = new Document();
+            //var margin = 20;
+
+            try
+            {
+                var os = new FileStream(outputFile, FileMode.Create);
+
+                var writer = PdfWriter.GetInstance(document, os);
+                var size = PageSize.A4;
+                document.Open();
+                document.SetPageSize(size);
+                PdfContentByte cb = writer.DirectContent;
+
+                do
+                {
+                    document.NewPage();
+
+                    for (int i = 0; i < row; i++)
+                    {
+                        for (int j = 0; j < column; j++)
+                        {
+                            if (TryAppendPage(i, j) == false)
+                                break;
+                        }
+                    }
+
+                } while (queue.Count > 0);
+
+                bool TryAppendPage(int x, int y)
+                {
+                    if (queue.TryDequeue(out var p) == false)
+                        return false;
+
+                    var reader = new PdfReader(p);
+                    var page = writer.GetImportedPage(reader, 1);
+
+                    AffineTransform af = new AffineTransform();
+
+                    var chunkHeight = (size.Height - margin * row * 2) / row;
+                    var chunkWidth = (size.Width - margin * column * 2) / column;
+
+                    var scaleHeight = chunkHeight / page.Height;
+                    var scaleWidth = chunkWidth / page.Width;
+                    var scale = Math.Min(scaleHeight, scaleWidth);
+
+                    var paddingY = (chunkHeight - scale * page.Height) / 2;
+                    var paddingX = (chunkWidth - scale * page.Width) / 2;
+
+                    //af.Translate(margin + paddingX + y * (size.Width / column), margin + paddingY + x * (size.Height / row));
+
+                    af.Translate(margin + y * ((size.Width / column) + paddingX), margin + x * ((size.Height / row) + paddingY));
+
+                    //af.Translate(y * ((size.Width / column) + margin + paddingX), x * ((size.Height / row) + margin + paddingY));
+
+                    af.Scale(scale, scale);
+
+                    cb.AddTemplate(page, af);
+
+                    return true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+            finally
+            {
+                document.Close();
             }
         }
 

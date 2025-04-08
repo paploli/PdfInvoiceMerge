@@ -32,22 +32,27 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnAdd = new System.Windows.Forms.ToolStripButton();
             this.btnClear = new System.Windows.Forms.ToolStripButton();
-            this.cmbMergeType = new System.Windows.Forms.ToolStripComboBox();
             this.btnMerge = new System.Windows.Forms.ToolStripButton();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblHorizontal = new System.Windows.Forms.ToolStripLabel();
+            this.txtRow = new System.Windows.Forms.ToolStripTextBox();
+            this.lblVertical = new System.Windows.Forms.ToolStripLabel();
+            this.txtColumn = new System.Windows.Forms.ToolStripTextBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.labInfo = new System.Windows.Forms.ToolStripStatusLabel();
             this.listInvoices = new System.Windows.Forms.ListBox();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.lblMargin = new System.Windows.Forms.ToolStripLabel();
+            this.txtMargin = new System.Windows.Forms.ToolStripTextBox();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.sourceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStrip1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -55,8 +60,13 @@
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAdd,
             this.btnClear,
-            this.cmbMergeType,
-            this.btnMerge});
+            this.btnMerge,
+            this.lblHorizontal,
+            this.txtRow,
+            this.lblVertical,
+            this.txtColumn,
+            this.lblMargin,
+            this.txtMargin});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(758, 25);
@@ -85,17 +95,6 @@
             this.btnClear.ToolTipText = "清空发票列表，也可以选中后按 DELETE 键删除。";
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
-            // cmbMergeType
-            // 
-            this.cmbMergeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMergeType.Items.AddRange(new object[] {
-            "每页一张发票",
-            "每页两张发票",
-            "每页四张发票"});
-            this.cmbMergeType.Name = "cmbMergeType";
-            this.cmbMergeType.Size = new System.Drawing.Size(121, 25);
-            this.cmbMergeType.ToolTipText = "输出样式";
-            // 
             // btnMerge
             // 
             this.btnMerge.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -107,54 +106,31 @@
             this.btnMerge.ToolTipText = "将发票合并后输出。";
             this.btnMerge.Click += new System.EventHandler(this.btnMerge_Click);
             // 
-            // menuStrip1
+            // lblHorizontal
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(758, 25);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            this.lblHorizontal.Name = "lblHorizontal";
+            this.lblHorizontal.Size = new System.Drawing.Size(20, 22);
+            this.lblHorizontal.Text = "行";
             // 
-            // fileToolStripMenuItem
+            // txtRow
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
-            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
-            this.fileToolStripMenuItem.Text = "文件(&F)";
+            this.txtRow.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.txtRow.Name = "txtRow";
+            this.txtRow.Size = new System.Drawing.Size(30, 25);
+            this.txtRow.Text = "1";
             // 
-            // exitToolStripMenuItem
+            // lblVertical
             // 
-            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.exitToolStripMenuItem.Text = "退出(&X)";
-            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            this.lblVertical.Name = "lblVertical";
+            this.lblVertical.Size = new System.Drawing.Size(20, 22);
+            this.lblVertical.Text = "列";
             // 
-            // helpToolStripMenuItem
+            // txtColumn
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.sourceToolStripMenuItem,
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
-            this.helpToolStripMenuItem.Text = "帮助(&H)";
-            // 
-            // sourceToolStripMenuItem
-            // 
-            this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
-            this.sourceToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.sourceToolStripMenuItem.Text = "源码(&S)";
-            this.sourceToolStripMenuItem.Click += new System.EventHandler(this.sourceToolStripMenuItem_Click);
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
-            this.aboutToolStripMenuItem.Text = "关于(&A)";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.txtColumn.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.txtColumn.Name = "txtColumn";
+            this.txtColumn.Size = new System.Drawing.Size(30, 25);
+            this.txtColumn.Text = "1";
             // 
             // statusStrip1
             // 
@@ -196,6 +172,69 @@
             this.openFileDialog1.Multiselect = true;
             this.openFileDialog1.Title = "PDF 发票";
             // 
+            // lblMargin
+            // 
+            this.lblMargin.Name = "lblMargin";
+            this.lblMargin.Size = new System.Drawing.Size(32, 22);
+            this.lblMargin.Text = "间距";
+            // 
+            // txtMargin
+            // 
+            this.txtMargin.Font = new System.Drawing.Font("Microsoft YaHei UI", 9F);
+            this.txtMargin.Name = "txtMargin";
+            this.txtMargin.Size = new System.Drawing.Size(30, 25);
+            this.txtMargin.Text = "20";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
+            this.fileToolStripMenuItem.Text = "文件(&F)";
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.exitToolStripMenuItem.Text = "退出(&X)";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sourceToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
+            this.helpToolStripMenuItem.Text = "帮助(&H)";
+            // 
+            // sourceToolStripMenuItem
+            // 
+            this.sourceToolStripMenuItem.Name = "sourceToolStripMenuItem";
+            this.sourceToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.sourceToolStripMenuItem.Text = "源码(&S)";
+            this.sourceToolStripMenuItem.Click += new System.EventHandler(this.sourceToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.aboutToolStripMenuItem.Text = "关于(&A)";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.helpToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(758, 25);
+            this.menuStrip1.TabIndex = 2;
+            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.Visible = false;
+            // 
             // frmMain
             // 
             this.AllowDrop = true;
@@ -220,10 +259,10 @@
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.frmMain_DragEnter);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,9 +271,6 @@
         #endregion
 
         private System.Windows.Forms.ToolStrip toolStrip1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel labInfo;
         private System.Windows.Forms.ListBox listInvoices;
@@ -243,10 +279,18 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripButton btnClear;
         private System.Windows.Forms.ToolStripButton btnMerge;
-        private System.Windows.Forms.ToolStripComboBox cmbMergeType;
+        private System.Windows.Forms.ToolStripLabel lblHorizontal;
+        private System.Windows.Forms.ToolStripTextBox txtRow;
+        private System.Windows.Forms.ToolStripLabel lblVertical;
+        private System.Windows.Forms.ToolStripTextBox txtColumn;
+        private System.Windows.Forms.ToolStripLabel lblMargin;
+        private System.Windows.Forms.ToolStripTextBox txtMargin;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem sourceToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
     }
 }
 
